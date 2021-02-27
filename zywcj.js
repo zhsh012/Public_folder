@@ -35,7 +35,7 @@ var pn = MY_URL.split("=")[2];
 var html = getResCode();
 //对第一页分类进行处理
 if(pn=='1'){
-//try{
+try{
 var rescod= request(arrr+"?ac=list");
 var type = parseDomForHtml(rescod,"class&&Html").match(/<ty[\s]id[\s\S]*?<\/ty>/g);
 for(var i=0;i<type.length;i++){
@@ -71,7 +71,7 @@ res.data=items;setHomeResult(res);`,
 col_type:"text_3"});
   }
  
-//} catch(e) {}
+} catch(e) {}
 items.push({
 col_type: 'line'});
 }
