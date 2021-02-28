@@ -82,7 +82,7 @@ var url = parseDomForHtml(type[i],"body&&ty&&id");
 
 items.push({
 title:title,
-url:arrr+"?ac=videolist&pg=fypage&t="+url+`@rule=js:\
+url:arrr+"?ac=list&pg=fypage&t="+url+`@rule=js:\
 var arrr = MY_URL.split("?")[0];\
 if (getVar('zywmsort','1')=='1') {html = getResCode();}else{html = request(MY_URL.replace('ac=list','ac=videolist'))}\
 var res = {};var items = [];\
