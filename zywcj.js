@@ -10,7 +10,7 @@ col_type: 'text_center_1'
 res.data=items;
 setHomeResult(res);
 }
-//列表与选集图片
+//列表与选集图片函数
 function pictu() {
 if(MY_URL.indexOf("pangniaozyw")!=-1||MY_URL.indexOf("leshizyw")!=-1||MY_URL.indexOf("9191zy")!=-1){
 pic="https://tu.tianzuida.com/pic/"+pic;
@@ -26,59 +26,10 @@ pic=pic.replace("img.maccms.com","img.17kanju.com");
 pic=pic.replace("http://img.maccms.com//pic=","");
 }
 }
-
-function TWEJ() {
-var res = {};
-var items = [];
-var arrr = MY_URL.split("?")[0];
-var pn = MY_URL.split("=")[2];
-var html = getResCode();
-//对第一页分类进行处理
-if(pn=='1'){
+//
+//列表解析函数
+function listfun() {
 try{
-var rescod= request(arrr+"?ac=list");
-var type = parseDomForHtml(rescod,"class&&Html").match(/<ty[\s]id[\s\S]*?<\/ty>/g);
-for(var i=0;i<type.length;i++){
-var title = parseDomForHtml(type[i],"body&&Text").split('{')[0];
-var url = parseDomForHtml(type[i],"body&&ty&&id");
-
-items.push({
-title:title,
-url:arrr+"?ac=videolist&pg=fypage&t="+url+`@rule=js:\
-var arrr = MY_URL.split("?")[0];\
-var html = getResCode();\
-var res = {};var items = [];\
-try{\
-var list=parseDomForArray(html,"rss&&video");\
-for(var j = 0; j <list.length; j++){\
-var title = parseDomForHtml(list[j],"body&&name&&Text");\
-var url = parseDomForHtml(list[j],"body&&id&&Text");\
-var note = parseDomForHtml(list[j],"body&&note&&Text");\
-var pic = parseDomForHtml(list[j],"body&&pic&&Text").replace("http://t.8kmm.com","https://www.wxtv.net");\
-eval(fetch('hiker://files/rules/zywcj.js'));\
-pictu();\
-/((http|https):\\/\\/.*?)\\/.*?/.test(pic);\
-var imgRefer = "@Referer=" + RegExp.$1;\
-items.push({\
-title:title,\
-pic_url:pic+imgRefer,\
-desc:note,\
-url:arrr+"?ac=videolist&ids="+url+\`@rule=js:eval(fetch('hiker://files/rules/zywcj.js'));SSEJ();\`,\
-col_type:"movie_3"});\
-}\
-} catch(e) {}\
-res.data=items;setHomeResult(res);`,
-col_type:"text_3"});
-  }
- 
-} catch(e) {}
-items.push({
-col_type: 'line'});
-}
-//结束第一页分类处理
-//对列表处理开始
-try{
-
 var list=parseDomForArray(html,"rss&&video");
 for(var j = 0; j <list.length; j++){
 var title = parseDomForHtml(list[j],"body&&name&&Text"); 
@@ -102,11 +53,48 @@ col_type:"movie_3"});
   }
 
 } catch(e) {}
+}
+//二级规则
+function TWEJ() {
+var res = {};
+var items = [];
+var arrr = MY_URL.split("?")[0];
+var pn = MY_URL.split("=")[2];
+var html = getResCode();
+//对第一页分类进行处理
+if(pn=='1'){
+try{
+var rescod= request(arrr+"?ac=list");
+var type = parseDomForHtml(rescod,"class&&Html").match(/<ty[\s]id[\s\S]*?<\/ty>/g);
+for(var i=0;i<type.length;i++){
+var title = parseDomForHtml(type[i],"body&&Text").split('{')[0];
+var url = parseDomForHtml(type[i],"body&&ty&&id");
+
+items.push({
+title:title,
+url:arrr+"?ac=videolist&pg=fypage&t="+url+`@rule=js:\
+var arrr = MY_URL.split("?")[0];\
+var html = getResCode();\
+var res = {};var items = [];\
+eval(fetch('hiker://files/rules/zywcj.js'));\
+listfun();\
+res.data=items;setHomeResult(res);`,
+col_type:"text_3"});
+  }
+ 
+} catch(e) {}
+items.push({
+col_type: 'line'});
+}
+//结束第一页分类处理
+//对列表处理开始
+eval(fetch('hiker://files/rules/zywcj.js'));
+listfun();
 //对列表处理结束
 res.data=items;
 setHomeResult(res);
 }
-
+//搜索二级函数
 function SSEJ() {
 var res = {};
 var items = [];
