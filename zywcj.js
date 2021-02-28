@@ -84,8 +84,22 @@ items.push({
 title:title,
 url:arrr+"?ac=videolist&pg=fypage&t="+url+`@rule=js:\
 var arrr = MY_URL.split("?")[0];\
-var html = getResCode();\
+if (getVar('zywmsort','1')=='1') {html = getResCode();}else{html = request(MY_URL.replace('ac=list','ac=videolist'))}\
 var res = {};var items = [];\
+items.push({\
+	title: '纯文本列表',\
+    desc:'',\
+    url:"hiker://empty@lazyRule=.js:putVar('zywmsort','1');refreshPage();'toast://切换成功！'",\
+    col_type: 'text_2'\
+});\
+items.push({\
+	title: '图文列表',\
+    desc:'',\
+    url:"hiker://empty@lazyRule=.js:putVar('zywmsort','0');refreshPage();'toast://切换成功！'",\
+    col_type: 'text_2'\
+});\
+items.push({\
+col_type: 'line'});\
 eval(fetch('hiker://files/rules/zywcj.js'));\
 listfun();\
 res.data=items;setHomeResult(res);`,
