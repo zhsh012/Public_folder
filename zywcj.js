@@ -10,8 +10,8 @@ col_type: 'text_center_1'
 res.data=items;
 setHomeResult(res);
 }
-//列表与选集图片函数
-function pictu() {
+//图片替换函数
+function picfun() {
 if(MY_URL.indexOf("pangniaozyw")!=-1||MY_URL.indexOf("leshizyw")!=-1||MY_URL.indexOf("9191zy")!=-1){
 pic="https://tu.tianzuida.com/pic/"+pic;
 }else if(MY_URL.indexOf("lby")!=-1){
@@ -26,41 +26,51 @@ pic=pic.replace("img.maccms.com","img.17kanju.com");
 pic=pic.replace("http://img.maccms.com//pic=","");
 }
 }
-//
 //列表解析函数
 function listfun() {
 try{
 var list=parseDomForArray(html,"rss&&video");
 for(var j = 0; j <list.length; j++){
-var title = parseDomForHtml(list[j],"body&&name&&Text"); 
+var title = parseDomForHtml(list[j],"body&&name&&Text").split('<')[0]; 
 var url = parseDomForHtml(list[j],"body&&id&&Text"); 
 var note = parseDomForHtml(list[j],"body&&note&&Text"); 
-//var last = parseDomForHtml(list[j],"body&&last&&Text"); 
 var typ = parseDomForHtml(list[j],"body&&type&&Text");
-var pic = parseDomForHtml(list[j],"body&&pic&&Text").replace("http://t.8kmm.com","https://www.wxtv.net");
-eval(fetch('hiker://files/rules/zywcj.js'));
-pictu();
-/((http|https):\/\/.*?)\/.*?/.test(pic);
-var imgRefer = "@Referer=" + RegExp.$1;
+var last = parseDomForHtml(list[j],"body&&last&&Text");
+
+if(html.indexOf("</pic>")!=-1){
+var pic=parseDomForHtml(list[j],"body&&pic&&Text").replace("http://t.8kmm.com","https://www.wxtv.net");
+eval(fetch("hiker://files/rules/zywcj.js"));
+picfun();
+var ref=pic.match(/((http|https):\/\/.*?)\/.*?/)[1];
+var picRefer = "@Referer=" + ref;
 items.push({
-//title:title+"状态："+note,
 title:title,
-pic_url:pic+imgRefer,
+pic_url:pic+picRefer,
 desc:note,
-//desc:last+"类型："+typ,
 url:arrr+"?ac=videolist&ids="+url+`@rule=js:eval(fetch('hiker://files/rules/zywcj.js'));SSEJ();`,
-col_type:"movie_3"});
+col_type:"movie_3"
+    });
+}else{
+var dt = parseDomForHtml(list[j],"body&&dt&&Text");
+items.push({
+title:title+"  状态:"+note,
+desc:last+' '+typ+' '+dt,
+url:arrr+"?ac=videolist&ids="+url+`@rule=js:eval(fetch('hiker://files/rules/zywcj.js'));SSEJ();`,
+col_type:"text_1"
+})
+    }
   }
 
 } catch(e) {}
 }
-//二级规则
+//二级规则函数
 function TWEJ() {
 var res = {};
 var items = [];
 var arrr = MY_URL.split("?")[0];
 var pn = MY_URL.split("=")[2];
-var html = getResCode();
+if (getVar('zywmsort','1')=='1') {
+html = getResCode();}else{html = request(MY_URL.replace('ac=list','ac=videolist'))}
 //对第一页分类进行处理
 if(pn=='1'){
 try{
@@ -85,8 +95,23 @@ col_type:"text_3"});
 } catch(e) {}
 items.push({
 col_type: 'line'});
+items.push({
+	title: '纯文本列表',
+    desc:'',
+    url:"hiker://empty@lazyRule=.js:putVar('zywmsort','1');refreshPage();'toast://切换成功！'",
+    col_type: 'text_2'
+});
+items.push({
+	title: '图文列表',
+    desc:'',
+    url:"hiker://empty@lazyRule=.js:putVar('zywmsort','0');refreshPage();'toast://切换成功！'",
+    col_type: 'text_2'
+});
+items.push({
+col_type: 'line'});
 }
 //结束第一页分类处理
+
 //对列表处理开始
 eval(fetch('hiker://files/rules/zywcj.js'));
 listfun();
@@ -109,12 +134,14 @@ var html = getResCode();
 try{
 var pic = parseDomForHtml(html,"rss&&pic&&Text").replace("http://t.8kmm.com","https://www.wxtv.net");
 eval(fetch('hiker://files/rules/zywcj.js'));
-pictu();
+picfun();
+var ref=pic.match(/((http|https):\/\/.*?)\/.*?/)[1];
+var picRefer = "@Referer=" + ref;
 var typ = parseDomForHtml(html,"body&&type&&Text");
 items.push({
 title: parseDomForHtml(html, "rss&&name&&Text")+"  剧情简介：",
 desc:parseDomForHtml(html, "rss&&des&&Text"),
-pic_url:pic,
+pic_url:pic+picRefer,
 url:pic,
 col_type: 'pic_1'
 });
