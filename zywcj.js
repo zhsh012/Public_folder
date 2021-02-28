@@ -181,7 +181,8 @@ return main.indexOf("http")!=-1?main:link+main;
 var main=fc.match(/url:.*?[\'\"](.*?)[\'\"]/)[1];
 return main.indexOf("http")!=-1?main:link+main};
 }else if(src.indexOf("meiju11")!=-1){
-return fetch(input,{headers:{"Referer":"https://www.meiju11.com"}}).match(/url:.*?[\'\"](.*?)[\'\"]/)[1];
+var meiju=fetch(src,{headers:{"Referer":"https://www.meiju11.com"}});
+return meiju.match(/url:.*?[\'\"](.*?)[\'\"]/)[1];
 }else if(src.indexOf("leduotv")!=-1){
 var pla=fetch(src,{}).split("var url=\'")[1].split("\'")[0];
 if(pla.indexOf("m3u8")!=-1){
