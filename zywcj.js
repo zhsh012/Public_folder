@@ -84,8 +84,10 @@ items.push({
 title:title,
 url:arrr+"?ac=list&pg=fypage&t="+url+`@rule=js:\
 var arrr = MY_URL.split("?")[0];\
+var pn = MY_URL.split("pg=")[1].split("&t=")[0];\
 if (getVar('zywmsort','1')=='1') {html = getResCode();}else{html = request(MY_URL.replace('ac=list','ac=videolist'))}\
 var res = {};var items = [];\
+if(pn=='1'){\
 items.push({\
 	title: '纯文本列表',\
     desc:'',\
@@ -99,7 +101,7 @@ items.push({\
     col_type: 'text_2'\
 });\
 items.push({\
-col_type: 'line'});\
+col_type: 'line'});}\
 eval(fetch('hiker://files/rules/zywcj.js'));\
 listfun();\
 res.data=items;setHomeResult(res);`,
