@@ -164,11 +164,16 @@ col_type: 'pic_1'
 var conts=parseDomForArray(html,'rss&&dl&&dd');
 var url=parseDomForHtml(html,'rss&&id&&Text');
 for(var i = 0;i<conts.length;i++){
+if (getVar('zywlsort','1')=='1') {
+var list=conts[i].split(">\n")[1].split("\n<")[0].split("#").reverse();
+  }else{
 var list=conts[i].split(">\n")[1].split("\n<")[0].split("#");
+  }
 var flag=parseDomForHtml(conts[i], "body&&dd&&flag");
 if(list!=null){
 items.push({
-title:flag=='qdyun'?flag+" 不显示播放的需刷新一次网页才能播":flag,
+title:flag=='qdyun'?flag+" 不显示播放的需刷新一次网页才能播":flag+"    🔗"+[i+1]+'/'+conts.length+"““点击切换选集排序””",
+url:"hiker://empty@lazyRule=.js:putVar('zywlsort', getVar('zywlsort','1')=='1'?'0':'1');refreshPage(false);'toast://切换成功！'",
 col_type: 'text_1'
 });
 var url={};
