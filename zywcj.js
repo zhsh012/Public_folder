@@ -211,7 +211,6 @@ if(!fetch("hiker://files/rules/parse.js",{})){
 var fileUrl="https://cdn.jsdelivr.net/gh/lzk23559/Public_folder/parse.js";
 }else{
 var fileUrl="hiker://files/rules/parse.js"}
-}
 var js=fetch(fileUrl,{});
 eval(js);
 var url=yqjx.toUrl(jiek+src.split('"')[0]);
@@ -269,7 +268,6 @@ if(!fetch("hiker://files/rules/parse.js",{})){
 var fileUrl="https://cdn.jsdelivr.net/gh/lzk23559/Public_folder/parse.js";
 }else{
 var fileUrl="hiker://files/rules/parse.js"}
-}
 var js=fetch(fileUrl,{});
 eval(js);
 var url=yqjx.toUrl(jiek+pli);
