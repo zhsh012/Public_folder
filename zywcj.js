@@ -207,7 +207,11 @@ function lazyRu() {
 var src=input.replace(/amp;/g,"");
 if(src.indexOf("html")!=-1){
 var jiek="https://1717.ntryjd.net/0526/?url=";
+if(!fetch("hiker://files/rules/parse.js",{})){
 var fileUrl="https://cdn.jsdelivr.net/gh/lzk23559/Public_folder/parse.js";
+}else{
+var fileUrl="hiker://files/rules/parse.js"}
+}
 var js=fetch(fileUrl,{});
 eval(js);
 var url=yqjx.toUrl(jiek+src.split('"')[0]);
@@ -261,7 +265,11 @@ return tools.DdyunPlayer.toUrl(src).replace("ddyunp.com","90mm.me")};
 }else if(src.indexOf("xsp1")!=-1){
 var pli=parseDomForHtml(fetch(src,{headers:{"Referer":"https://zz22x.com"}}),"body&&iframe&&src").split("url=")[1];
 var jiek="https://1717.ntryjd.net/0526/?url=";
+if(!fetch("hiker://files/rules/parse.js",{})){
 var fileUrl="https://cdn.jsdelivr.net/gh/lzk23559/Public_folder/parse.js";
+}else{
+var fileUrl="hiker://files/rules/parse.js"}
+}
 var js=fetch(fileUrl,{});
 eval(js);
 var url=yqjx.toUrl(jiek+pli);
