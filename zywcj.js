@@ -147,6 +147,8 @@ items.push({
     col_type: 'x5_webview_single'
 });
 var html = getResCode();
+//将插件临时转为本地化。
+putVar2('jsmod','1');
 try{
 var pic = parseDomForHtml(html,"rss&&pic&&Text").replace("http://t.8kmm.com","https://www.wxtv.net");
 eval(fetch('hiker://files/rules/zywcj.js'));
