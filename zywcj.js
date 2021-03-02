@@ -165,9 +165,9 @@ var conts=parseDomForArray(html,'rss&&dl&&dd');
 var url=parseDomForHtml(html,'rss&&id&&Text');
 for(var i = 0;i<conts.length;i++){
 if (getVar('zywlsort','1')=='1') {
-var list=conts[i].split(">\n")[1].split("\n<")[0].split("#").reverse();
-  }else{
 var list=conts[i].split(">\n")[1].split("\n<")[0].split("#");
+  }else{
+var list=conts[i].split(">\n")[1].split("\n<")[0].split("#").reverse();
   }
 var flag=parseDomForHtml(conts[i], "body&&dd&&flag");
 if(list!=null){
