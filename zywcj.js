@@ -41,7 +41,7 @@ if(html.indexOf("</pic>")!=-1){
 var pic=parseDomForHtml(list[j],"body&&pic&&Text").replace("http://t.8kmm.com","https://www.wxtv.net");
 eval(fetch("hiker://files/rules/zywcj.js"));
 picfun();
-var ref=pic.match(/((http|https):\/\/.*?)\/.*?/)[1];
+var ref=pic.match(/((http|https).*?)\/.*?/)[1];
 var picRefer = "@Referer=" + ref;
 items.push({
 title:title,
@@ -151,7 +151,7 @@ try{
 var pic = parseDomForHtml(html,"rss&&pic&&Text").replace("http://t.8kmm.com","https://www.wxtv.net");
 eval(fetch('hiker://files/rules/zywcj.js'));
 picfun();
-var ref=pic.match(/((http|https):\/\/.*?)\/.*?/)[1];
+var ref=pic.match(/((http|https).*?)\/.*?/)[1];
 var picRefer = "@Referer=" + ref;
 var typ = parseDomForHtml(html,"body&&type&&Text");
 items.push({
