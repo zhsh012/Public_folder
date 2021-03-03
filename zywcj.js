@@ -41,11 +41,9 @@ if(html.indexOf("</pic>")!=-1){
 var pic=parseDomForHtml(list[j],"body&&pic&&Text").replace("http://t.8kmm.com","https://www.wxtv.net");
 eval(fetch("hiker://files/rules/zywcj.js"));
 picfun();
-var ref=pic.match(/((http|https).*?)\/.*?/)[1];
-var picRefer = "@Referer=" + ref;
 items.push({
 title:title,
-pic_url:pic+picRefer,
+pic_url:pic,
 desc:note,
 url:arrr+"?ac=videolist&ids="+url+`@rule=js:eval(fetch('hiker://files/rules/zywcj.js'));SSEJ();`,
 col_type:"movie_3"
@@ -147,19 +145,15 @@ items.push({
     col_type: 'x5_webview_single'
 });
 var html = getResCode();
-//将插件临时转为本地化。
-putVar2('jsmod','1');
 try{
 var pic = parseDomForHtml(html,"rss&&pic&&Text").replace("http://t.8kmm.com","https://www.wxtv.net");
 eval(fetch('hiker://files/rules/zywcj.js'));
 picfun();
-var ref=pic.match(/((http|https).*?)\/.*?/)[1];
-var picRefer = "@Referer=" + ref;
 var typ = parseDomForHtml(html,"body&&type&&Text");
 items.push({
 title: parseDomForHtml(html, "rss&&name&&Text")+"  剧情简介：",
 desc:parseDomForHtml(html, "rss&&des&&Text"),
-pic_url:pic+picRefer,
+pic_url:pic,
 url:pic,
 col_type: 'pic_1'
 });
